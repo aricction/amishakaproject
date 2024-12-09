@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="checkout.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Left Section -->
+        <div class="left-section">
+            <section>
+                <h1>Order Summary</h1>
+                <div class="product-card" id="cartItems">
+                    <!-- Product details will go here -->
+                </div>
+            </section>
+            
+            <section>
+                <h1>Payment Methods</h1>
+                <div class="payment-card">
+                    <input type="radio" id="cod" name="payment" checked />
+                    <label for="cod" style="font-size: 15px;">Cash on Delivery</label>
+                    <br>
+                    <input type="radio" id="online" name="payment" />
+                    <label for="online" style="font-size: 15px;">Online Payment</label>
+                </div>
+            </section>
+        </div>
+
+        <!-- Right Section -->
+        <div class="right-section">
+            <section>
+                <h1>Delivery Address</h1>
+                <div class="delivery-card">
+                    <form>
+                        <input type="text" id="name" placeholder="Full name" required>
+                        <br>
+                        <input type="email" id="email" placeholder="Email" required>
+                        <br>
+                        <input type="number" id="phone" placeholder="Phone no" required>
+                        <br>
+                        <input type="text" id="address" placeholder="Address" required>
+                        <br>
+                        <button type="submit">Place Order</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="checkout.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
+
+
+:root{
+    --green:#27ae60;
+    --black:#2c2c54;
+  }
+  
+  *{
+    font-family: 'Nunito', sans-serif;
+    margin:0; padding:0;
+    box-sizing: border-box;
+    outline: none; border:none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: all .2s linear;
+  }
+  
+  *::selection{
+    background:var(--green);
+    color:#fff;
+  }
+  
+  html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-padding-top: 6.5rem;
+    scroll-behavior: smooth;
+  }
+  
+  section{
+    padding:2rem 9%;
+  }
+  
+  .btn{
+    display: inline-block;
+    margin-top: 1rem;
+    background:var(--green);
+    color:#fff;
+    padding:.8rem 3rem;
+    font-size: 1.7rem;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .btn:hover{
+    background:var(--black);
+  }
+
+.product-card{
+   
+    margin: 5px;
+    border: 1px solid #2c2c54;
+    border-radius: 10px;
+    padding: 15px;
+}
+.product-card p{
+   
+    justify-content: start;
+    font-size: 15px;
+}
+
+.delivery-card{
+ box-shadow: 1px 1px 1px 1px grey ;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #27ae60;
+}
+
+.payment-card{
+  
+   display: block;
+   border: 1px solid #2c2c54;
+    border-radius: 10px;
+    padding: 15px;
+    
+}
+.delivery-card input{
+    
+    margin-top: 10px;
+    padding: 5px;
+    color: #2c2c54;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 5px ; 
+   
+}
+.delivery-card button{
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color:#2c2c54;
+    color: white;
+}
+
+
+.cart-total{
+  border-radius: 10px;
+  border: 1px solid #2c2c54;
+  font-size: 20px;
+  padding: 10px;
+ 
+}
+
+.container {
+  display: flex;
+  gap: 2px;
+  padding: 2rem;
+  flex-wrap: wrap; 
+}
+
+.left-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 2;
+}
+
+.right-section {
+  flex: 2; 
+}
+@media (max-width: 768px) {
+  .container {
+      flex-direction: column;
+  }
+
+  .left-section, .right-section {
+      flex: 1;
+  }
+}

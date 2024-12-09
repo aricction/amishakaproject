@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Shopping History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-info, .order-history {
+            margin-bottom: 30px;
+        }
+
+        .user-info h2, .order-history h2 {
+            color: #333;
+        }
+
+        .order-item {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .order-item h3 {
+            font-size: 18px;
+        }
+
+        .order-item p {
+            margin: 5px 0;
+        }
+
+        .btn {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- User Information -->
+        <div class="user-info">
+            <h2>User Information</h2>
+            <p id="userName"><strong>Name:</strong> Loading...</p>
+            <p id="userEmail"><strong>Email:</strong> Loading...</p>
+        </div>
+
+        <!-- Order History -->
+        <div class="order-history">
+            <h2>Your Shopping History</h2>
+            <div id="orderList">
+                <!-- Orders will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fetch user-specific data (replace with real API calls)
+        async function fetchUserData() {
+            try {
+                const userResponse = await fetch('/api/user');
+                if (!userResponse.ok) throw new Error('Failed to fetch user data');
+                const user = await userResponse.json();
+
+                document.getElementById('userName').innerHTML = `<strong>Name:</strong> ${user.name}`;
+                document.getElementById('userEmail').innerHTML = `<strong>Email:</strong> ${user.email}`;
+
+                return user.id; // Return user ID to fetch their orders
+            } catch (error) {
+                console.error(error);
+                alert('Error loading user information.');
+            }
+        }
+
+        async function fetchOrderHistory(userId) {
+            try {
+                const ordersResponse = await fetch(`/api/orders?userId=${userId}`);
+                if (!ordersResponse.ok) throw new Error('Failed to fetch order history');
+                const orders = await ordersResponse.json();
+
+                const orderListContainer = document.getElementById('orderList');
+                orderListContainer.innerHTML = ''; // Clear any previous content
+
+                if (orders.length === 0) {
+                    orderListContainer.innerHTML = '<p>No orders found.</p>';
+                    return;
+                }
+
+                orders.forEach(order => {
+                    const orderItemDiv = document.createElement('div');
+                    orderItemDiv.classList.add('order-item');
+
+                    const orderHeader = document.createElement('h3');
+                    orderHeader.textContent = `Order ID: ${order.orderId} (Date: ${order.date})`;
+                    orderItemDiv.appendChild(orderHeader);
+
+                    order.items.forEach(item => {
+                        const itemDetails = document.createElement('p');
+                        itemDetails.textContent = `${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`;
+                        orderItemDiv.appendChild(itemDetails);
+                    });
+
+                    const orderTotal = document.createElement('p');
+                    orderTotal.innerHTML = `<strong>Total:</strong> $${order.total.toFixed(2)}`;
+                    orderItemDiv.appendChild(orderTotal);
+
+                    orderListContainer.appendChild(orderItemDiv);
+                });
+            } catch (error) {
+                console.error(error);
+                alert('Error loading order history.');
+            }
+        }
+
+        // Load user and their orders on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            const userId = await fetchUserData();
+            if (userId) {
+                await fetchOrderHistory(userId);
+            }
+        });
+    </script>
+</body>
+</html>
